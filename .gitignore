@@ -1,0 +1,13 @@
+.user.yml
+.venv/
+logs/
+target/
+test/
+.DS_Store
+*.sav
+*.pyc
+*.csv
+.vscode/
+__pycache__/
+venv/
+*.code-workspace
