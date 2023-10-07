@@ -102,10 +102,11 @@ def process_image():
             # Now, you can process the image as intended and save the result
             # Replace 'outputPath' with the appropriate path
             writeMhd(output.squeeze(0).astype(np.uint8), outputPath + 'processed_image.mhd', sitkImage)
-
-
+            #output = FilterUnconnectedRegions(output.squeeze(0), multilabelNum, sitkImage)# Herramienta de filtrado de imagenes
+            #sitk.WriteImage(output, outputPath + 'processed_image.mhd')
+         
     return f"Image processed successfully! <a href='{processed_file_path}' download>Download Processed File</a>"
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
