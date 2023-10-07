@@ -60,7 +60,7 @@ i = 0
 # Route to render the upload form
 @app.route('/')
 def upload_form():
-    return render_template('upload.html')
+    return render_template('index.html')
 
 
 

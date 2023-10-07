@@ -1,13 +1,1 @@
-api_version: 1
 runtime: python311 # or another supported version
-entrypoint: gunicorn -b :$PORT segment_with_trained_unet_3dtest:app  # Reemplaza con el nombre del archivo principal de tu aplicación y la variable de entorno para el puerto
-
-env_variables:
-  UPLOAD_FOLDER: 'C:/Users/DELL/MuscleSegmentation/CNNs/unet/uploads_folder/'  # Establece tus variables de entorno aquí
-
-handlers:
-- url: /templates
-  static_dir: templates  # Si tienes archivos estáticos, colócalos en un directorio 'static'
-
-- url: /.*
-  script: auto
