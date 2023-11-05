@@ -8,6 +8,7 @@ from utils import multilabel
 from utils import maxProb
 from utils import FilterUnconnectedRegions
 from flask import Flask, render_template, request, redirect, url_for
+from flask_mail import Mail, Message
 import os
 import time  # Import the time module
 
@@ -17,7 +18,11 @@ app = Flask(__name__, template_folder='templates')  # Set the template folder
 app.config['UPLOAD_FOLDER'] = 'C:/Users/DELL/MuscleSegmentation/CNNs/unet/uploads_folder/'
 
 # Resto de tu código...
-
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587  # Adjust the port accordingly
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'ceunimprueba@gmail.com'
+app.config['MAIL_PASSWORD'] = 'bwiv uvbe lkzm vveq'
 
 ############################ DATA PATHS ##############################################
 dataPath = '../../Data/LumbarSpine3D/InputImages/'
@@ -55,7 +60,8 @@ imageNames = []
 imageFilenames = []
 i = 0
 
-    # ... (previous code)
+mail = Mail(app)
+
 
 # Route to render the upload form
 @app.route('/')
@@ -69,6 +75,12 @@ def upload_form():
 def process_image():
     if 'raw_file' not in request.files or 'mhd_file' not in request.files:
         return redirect(request.url)
+    
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    occupation = request.form['occupation']
+    recipient = request.form['recipient']
+
 
     raw_file = request.files['raw_file']
     mhd_file = request.files['mhd_file']
@@ -105,7 +117,15 @@ def process_image():
             #output = FilterUnconnectedRegions(output.squeeze(0), multilabelNum, sitkImage)# Herramienta de filtrado de imagenes
             #sitk.WriteImage(output, outputPath + 'processed_image.mhd')
          
-    return f"Image processed successfully! <a href='{processed_file_path}' download>Download Processed File</a>"
+                # Send an email
+            msg = Message('Processed Image', sender='your_email@example.com', recipients=[recipient])
+            msg.body = f"Dear recipient,\n\nWe have processed your uploaded image and are pleased to inform you that the processed image file is attached to this email. Please find the details of the user below:\n\nName: {first_name}\nLast Name: {last_name}\nOccupation: {occupation}\n\nIf you have any questions or need further assistance, please feel free to reach out to us.\n\nBest regards,\nThe CEUNIM Team"
+            with app.open_resource(outputPath + 'processed_image.mhd') as fp:
+                msg.attach('processed_image.mhd', 'application/octet-stream', fp.read())
+            mail.send(msg)
+
+
+    return f"Image processed successfully and sent to {request.form['recipient']}!"
 
 
 if __name__ == '__main__':

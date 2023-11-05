@@ -1,154 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Image Segmentation</title>
+    <title id="header-id">Lumbar Spine Muscle Segmentation from MRI</title>
+
     <style>
+        /* CSS styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #001633;
+            color: #ffffff;
             margin: 0;
             padding: 0;
         }
-        
+
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            margin-right: px;
+        }
+
         header {
-            background-color: #888;
-            padding: 20px 0;
+            background-color:#b6c1cf;
+            color: #001633;
+            padding: 10px 0;
             text-align: center;
-            width: 100%;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            position: absolute;
-            top: 0;
-            left: 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .about-us-button {
+            background-color: #001633;
+            border: none;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .about-us-button:hover {
+            background-color: #85d5e6;
         }
 
         h1 {
-            color: #fff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 36px;
+            text-align: center;
+            margin: 20px 0;
         }
 
         h2 {
-            color: #333;
-            font-size: 25px;
-            margin-top: 25px;
+            font-size: 28px;
+            color: #ffab40;
+            text-align: center;
+            margin: 20px 0;
         }
 
         p {
-            color: rgb(0, 0, 0);
             font-size: 18px;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             text-align: center;
             margin-top: 10px;
+            line-height: 24px;
         }
-        
+
         main {
             display: flex;
+            color: black;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin-top: 1px;
         }
-        
-        form {
-            max-width: 1000px;
-            margin: 10px;
+
+        .section {
+            max-width: 800px;
+            width: 100%;
+            margin: 20px;
             padding: 20px;
-            font-size: 16px;
             background-color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            /* Alineación horizontal y vertical */
-            display: block; /* Alineación vertical */
-            margin: 0 auto; /* Centrar horizontalmente */
-            text-align: left; /* Alineación horizontal a la izquierda */
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .file-input-group {
+        .form-container {
+            width: 100%;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
         }
 
-        .file-input {
-            flex: 1;
-            margin-right: 10px; /* Ajusta el margen derecho para mover el botón a la izquierda */
-        }
-
-        /* Reglas de estilo para alinear el texto a la izquierda */
-        .label-left {
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            font-size: 16px;
             text-align: left;
-            margin-left : 10px;
         }
 
         label {
-            width: 100%;
+            display: block;
+            font-weight: bold;
+            margin-top: 20px;
         }
 
+        input[type="text"],
+        input[type="email"],
         input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            text-align: left;
-            align-items: left;
-
-
+            width: calc(100% - 48px);
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #001633;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #001633;
         }
-        
+
         input[type="submit"] {
-            background-color: #3498db;
-            font-size: 15px;
-            color: #fff;
-            padding: 10px 15px;
+            background-color: #ffab40;
+            font-size: 16px;
+            color: #ffffff;
+            padding: 14px 24px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            display: block; /* Centrar el botón */
-            margin: 0 auto; /* Centrar horizontalmente */
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
         }
-        
+
         input[type="submit"]:hover {
-            background-color: #2980b9;
+            background-color: #85d5e6;
         }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #ffffff;
+            margin: 20px 0;
+        }
+
+        .section-about-us {
+            color: white;
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .copyright {
+            background-color: #001633;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+        }
+
+
+        .language-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .language-buttons button {
+            background-color: white;
+            text-align: right;
+            border: none;
+            color: gray;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
     </style>
 </head>
+
 <body>
-    <!-- Header with gray band -->
+
+
+    <!-- Header with white ba   kground -->
     <header>
-        <h1>Medical Image Segmentation</h1>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="{{url_for('static', filename='logo-UNSAM-40-democracia.jpg')}}" align="middle" />
+            </div>
+            <h1>Lumbar Spine Muscle Segmentation from MRI</h1>
+           
+            <a class="about-us-button" href="#about-us">About Us</a>
+            <div class="language-buttons">
+                <button id="en-button">EN</button>
+                <button id="es-button">ES</button>
+            </div>
+        </div>
     </header>
 
     <main>
         <!-- Explanatory text -->
-        <h2>Upload Medical Images</h2>
-        <p>Upload your medical images in .raw and .mhd format for segmentation.</p>
+        <div class="section">
+            <h2 id="upload-header">Upload your MRI images</h2>
+            <p id="field-of-view">Field of view should be from the lesser trochanter to the top of L1 spine</p>
 
-        <!-- Form for image upload -->
-        <form action="/process" method="POST" enctype="multipart/form-data" class="form-center">
-            <div class="file-input-group">
-                <!-- Input for .raw file -->
-                <div class="file-input">
-                    <label for="raw_file" class="label-left">Select .raw File:</label>
-                    <input type="file" id="raw_file" name="raw_file" accept=".raw" required>
-                </div>
-                <!-- Input for .mhd file -->
-                <div class="file-input">
-                    <label for="mhd_file" class="label-left">Select .mhd File:</label>
-                    <input type="file" id="mhd_file" name="mhd_file" accept=".mhd" required>
-                </div>
+            <!-- Form for image upload -->
+            <div class="form-container">
+                <form action="/process" method="POST" enctype="multipart/form-data">
+                    <!-- Input for first name -->
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+
+                    <!-- Input for last name -->
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+
+                    <!-- Input for occupation -->
+                    <label for="occupation">Occupation:</label>
+                    <input type="text" id="occupation" name="occupation" required>
+
+                    <!-- Input for recipient's email -->
+                    <label for="recipient_email">Email:</label>
+                    <input type="email" id="recipient_email" name="recipient" required>
+
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                        <!-- Input for .raw file -->
+                        <div style="flex-basis: 48%;">
+                            <label for="raw_file">Select .raw File:</label>
+                            <input type="file" id="raw_file" name="raw_file" accept=".raw" required>
+                        </div>
+                        <!-- Input for .mhd file -->
+                        <div style="flex-basis: 48%;">
+                            <label for="mhd_file">Select .mhd File:</label>
+                            <input type="file" id="mhd_file" name="mhd_file" accept=".mhd" required>
+                        </div>
+                    </div>
+
+                    <!-- Submission button -->
+                    <input type="submit" value="Upload and Start Segmentation">
+                </form>
+                <p id="output-message">The output file will be sent by email</p>
             </div>
-            <br><br>
+        </div>
 
-            <!-- Submission button -->
-            <input type="submit" value="Upload and Start Segmentation">
-        </form>
-        
-        <!-- Additional Instructions -->
-        <h2>Instructions</h2>
-        <p>Ensure that you provide high-quality medical images in the specified formats. Our system will perform image segmentation to identify key features.</p>
+        <!-- About Us Section -->
+        <div class="divider"></div>
+        <div class="section-about-us" id="about-us">
+            <h2 id="about-c">About CEUNIM</h2>
+            <p id="about-1">The University Center for Medical Imaging (CEUNIM) is an institution focused on deepening the connection
+                between the academic and healthcare sectors in the field of complex multimodal diagnostic imaging and public
+                health and education policies.</p>
+
+            <p id="about-2">It represents the first experience in which a national university undertakes, under its sole responsibility, a
+                project of this nature. CEUNIM is affiliated with the School of Science and Technology at the National
+                University of San Martín, where the strengths of its areas in medical physics and biomedical engineering
+                provide an ideal environment for achieving the center's objectives.</p>
+
+            <p id="about-3">The Center aims to introduce new techniques for the acquisition, processing, and quantification of clinical
+                studies into the national medical research space. This endeavor is made possible by the multidisciplinary
+                concentration of faculty researchers with backgrounds in medical and physical-mathematical fields.</p>
+        </div>
+
+        <!-- Link to know more about CEUNIM -->
+        <div class="section-about-us" style="margin-top: 20px;">
+            <p id="learn-more">For more information about CEUNIM, visit  <a
+                    href="https://www.unsam.edu.ar/ceunim/" target="_blank">this link.</a>.</p>
+        </div>
     </main>
+
+    <!-- Copyright Section -->
+    <div class="divider"></div>
+    <div class="copyright">
+        <p>&copy; 2023 Lumbar Spine Muscle Segmentation from MRI. All rights reserved.</p>
+    </div>
+
+    <script>
+        const enButton = document.getElementById("en-button");
+        const esButton = document.getElementById("es-button");
+        const uploadHeader = document.getElementById("upload-header");
+        const fieldOfView = document.getElementById("field-of-view");
+        const outputMessage = document.getElementById("output-message");
+        const learnMore = document.getElementById("learn-more");
+        const about1 = document.getElementById("about-1");
+        const about2 = document.getElementById("about-2");
+        const about3 = document.getElementById("about-3");
+        const aboutc = document.getElementById("about-c");
+
+        enButton.addEventListener("click", function () {
+            uploadHeader.textContent = "Upload your MRI images";
+            fieldOfView.textContent = "Field of view should be from the lesser trochanter to the top of L1 spine";
+            outputMessage.textContent = "The output file will be sent by email";
+            learnMore.textContent = "For more information about CEUNIM, visit this link.";
+            about1.textContent = "The University Center for Medical Imaging (CEUNIM) is an institution focused on deepening the connection between the academic and healthcare sectors in the field of complex multimodal diagnostic imaging and public health and education policies."
+            about2.textContent = "It represents the first experience in which a national university undertakes, under its sole responsibility, a project of this nature. CEUNIM is affiliated with the School of Science and Technology at the National University of San Martín, where the strengths of its areas in medical physics and biomedical engineering provide an ideal environment for achieving the center's objectives."
+            about3.textContent = "The Center aims to introduce new techniques for the acquisition, processing, and quantification of clinical studies into the national medical research space. This endeavor is made possible by the multidisciplinary concentration of faculty researchers with backgrounds in medical and physical-mathematical fields."
+            aboutc.textContent = "About CEUNIM"
+        });
+
+        esButton.addEventListener("click", function () {
+            uploadHeader.textContent = "Sube tus imágenes de resonancia magnética lumbar";
+            fieldOfView.textContent = "El campo de visión debe ser desde el trocánter menor hasta la parte superior de la columna L1";
+            outputMessage.textContent = "El archivo de salida se enviará por correo electrónico";
+            learnMore.textContent = "Para obtener más información sobre CEUNIM, visita este enlace.";
+            about1.textContent = "El Centro Universitario de Imágenes Médicas (CEUNIM) es una institución orientada a profundizar la vinculación entre el sector académico y el sector salud en el área del diagnóstico por imágenes multimodales de alta complejidad y políticas públicas de salud y educación."
+            about2.textContent = "Constituye la primera experiencia en la que una universidad nacional asume bajo su exclusiva responsabilidad un proyecto de estas características. El CEUNIM depende de la Escuela de Ciencia y Tecnología de la Universidad Nacional de San Martín, en donde las fortalezas de sus áreas de física médica e ingeniería biomédica brindan un entorno propicio para el cumplimiento de los objetivos del centro."
+            about3.textContent = "El Centro proyecta incorporar al espacio de la investigación médica nacional nuevas técnicas de adquisición, procesamiento y cuantificación de estudios clínicos dada la concentración multidisciplinaria de docentes investigadores de perfil médico y físico-matemático que conforman su plantel."
+            aboutc.textContent = "Sobre el CEUNIM"
+        });
+    </script>
 </body>
+
 </html>
