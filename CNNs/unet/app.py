@@ -12,6 +12,7 @@ from flask_mail import Mail, Message
 import os
 import time  # Import the time module
 
+
 app = Flask(__name__, template_folder='templates')  # Set the template folder
 
 # Configura la ubicación para guardar archivos cargados temporalmente
