@@ -12,7 +12,7 @@ This repository contains code for a web application that performs lumbar spine m
 
 ## Prerequisites
 
-- Python 3
+- Python 3.11
 - Libraries: SimpleITK, NumPy, Flask, Flask-Mail, PyTorch
 
 ## Usage
