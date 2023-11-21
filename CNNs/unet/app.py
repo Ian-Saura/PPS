@@ -13,6 +13,7 @@ import os
 import time  # Import the time module
 
 
+
 app = Flask(__name__, template_folder='templates')  # Set the template folder
 
 # Configura la ubicación para guardar archivos cargados temporalmente
@@ -27,6 +28,7 @@ app.config['MAIL_PASSWORD'] = 'bwiv uvbe lkzm vveq'
 
 ############################ DATA PATHS ##############################################
 dataPath = '../../Data/LumbarSpine3D/InputImages/'
+outputPath = '../../Data/LumbarSpine3D/OutputImages/'
 outputPath = '../../Data/LumbarSpine3D/OutputImages/'
 modelLocation = '../../Data/LumbarSpine3D/PretrainedModel/'
 # Image format extension:
@@ -122,8 +124,14 @@ def process_image():
             msg = Message('Processed Image', sender='your_email@example.com', recipients=[recipient])
             msg.body = f"Dear recipient,\n\nWe have segmented your uploaded image and are pleased to inform you that the processed image file is attached to this email. We have applied an image segmentation based on a U-NET neural network to segment the lumbar spine muscles.\n If you use our method in your research please cite the following publications:\n Please find the details of the user below:\n\nName: {first_name}\nLast Name: {last_name}\nOccupation: {occupation}\n\nBest regards,\nThe LaPIM Team"
             
+            msg.body = f"Dear recipient,\n\nWe have segmented your uploaded image and are pleased to inform you that the processed image file is attached to this email. We have applied an image segmentation based on a U-NET neural network to segment the lumbar spine muscles.\n If you use our method in your research please cite the following publications:\n Please find the details of the user below:\n\nName: {first_name}\nLast Name: {last_name}\nOccupation: {occupation}\n\nBest regards,\nThe LaPIM Team"
+            
             with app.open_resource(outputPath + 'processed_image.mhd') as fp:
                 msg.attach('processed_image.mhd', 'application/octet-stream', fp.read())
+
+            with app.open_resource(outputPath + 'processed_image.raw') as fp_raw:
+                msg.attach('processed_image.raw', 'application/octet-stream', fp_raw.read())
+
 
             with app.open_resource(outputPath + 'processed_image.raw') as fp_raw:
                 msg.attach('processed_image.raw', 'application/octet-stream', fp_raw.read())
