@@ -206,10 +206,10 @@
             <h1>Lumbar Spine Muscle Segmentation from MRI</h1>
            
             <a class="about-us-button" href="#about-us">About Us</a>
-            <div class="language-buttons">
+            <!-- <div class="language-buttons">
                 <button id="en-button">EN</button>
                 <button id="es-button">ES</button>
-            </div>
+            </div>-->
         </div>
     </header>
 
@@ -251,8 +251,15 @@
                         </div>
                     </div>
 
-                    <input type="checkbox" id="agreement" name="agreement" required>
-                    <label for="agreement">I agree to upload a medical image to be processed online and understand that the information will be handled in accordance with privacy policies. I also consent to the use of anonymized data to improve our methods.</label>
+                    <div style="display: flex; align-items: center; margin-top: 20px;">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement" style="margin-left: 10px;">
+                            I agree to upload a medical image to be processed online and understand that the information will be handled in accordance with privacy policies. I also consent to the use of anonymized data to improve our methods.
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 20px;"></div>
+
                     <!-- Submission button -->
                     <input type="submit" value="Upload and Start Segmentation">
                 </form>
@@ -272,7 +279,7 @@
         <!-- Link to know more about CEUNIM -->
         <div class="section-about-us" style="margin-top: 20px;">
             <p id="learn-more">More information at <a
-                    href="https://mabelzunce.github.io/" target="_blank">this link.</a>.</p>
+                    href="https://mabelzunce.github.io/" target="_blank" style="color: #ffab40" >this link</a></p>
         </div>
     </main>
 
@@ -293,6 +300,8 @@
         const about2 = document.getElementById("about-2");
         const about3 = document.getElementById("about-3");
         const aboutc = document.getElementById("about-c");
+        const learnMoreLink = document.querySelector("a");
+
 
         enButton.addEventListener("click", function () {
             uploadHeader.textContent = "Upload your MRI images";
@@ -310,6 +319,9 @@
             fieldOfView.textContent = "El campo de visión debe ser desde el trocánter menor hasta la parte superior de la columna L1";
             outputMessage.textContent = "El archivo de salida se enviará por correo electrónico";
             learnMore.textContent = "Para obtener más información sobre CEUNIM, visita este enlace.";
+            if (learnMoreLink) {
+                 learnMoreLink.href = "https://mabelzunce.github.io/";
+             }
             about1.textContent = "El Centro Universitario de Imágenes Médicas (CEUNIM) es una institución orientada a profundizar la vinculación entre el sector académico y el sector salud en el área del diagnóstico por imágenes multimodales de alta complejidad y políticas públicas de salud y educación."
             about2.textContent = "Constituye la primera experiencia en la que una universidad nacional asume bajo su exclusiva responsabilidad un proyecto de estas características. El CEUNIM depende de la Escuela de Ciencia y Tecnología de la Universidad Nacional de San Martín, en donde las fortalezas de sus áreas de física médica e ingeniería biomédica brindan un entorno propicio para el cumplimiento de los objetivos del centro."
             about3.textContent = "El Centro proyecta incorporar al espacio de la investigación médica nacional nuevas técnicas de adquisición, procesamiento y cuantificación de estudios clínicos dada la concentración multidisciplinaria de docentes investigadores de perfil médico y físico-matemático que conforman su plantel."
