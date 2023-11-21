@@ -1,6 +1,3 @@
-Certainly! Below is a sample GitHub README for your provided code:
-
----
 
 # Lumbar Spine Muscle Segmentation from MRI
 
